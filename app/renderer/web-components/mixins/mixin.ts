@@ -1,4 +1,4 @@
-import { cached } from "./mixin-wrappers";
+import { cached } from "./mixin-decorators";
 
 /**
  * The constructor type for mixins.
