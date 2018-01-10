@@ -1,0 +1,39 @@
+// =============================================================================
+// Contains all of the styling applied to the root "app.html".
+// This styling is not injected into the web-components shadow dom.
+// =============================================================================
+
+@import "variables";
+@import "normalize";
+@import "common";
+
+html {
+    font-size: 62.5%; // use a base font-size of 62.5% to be able to size rems similar to px
+
+    body {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        flex-flow: column nowrap;
+        background: $athensGrey;
+
+        header {
+            flex: 0 1 auto;
+        }
+
+        main {
+            flex: 0 1 100%;
+            background-color: $contentBackgroundColor;
+            overflow: auto;
+        }
+
+        footer {
+            flex: 0 1 auto;
+            border-top: .1rem $footerBorderColor solid;
+            background-color: $footerBackgroundColor;
+        }
+    }
+}

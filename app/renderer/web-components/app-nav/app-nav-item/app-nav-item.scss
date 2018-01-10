@@ -1,0 +1,18 @@
+@import "variables";
+
+a {
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: $white;
+
+    &:hover {
+        background-color: $navigationItemHoverColor;
+    }
+
+    &.activated {
+        background-color: $navigationItemActiveColor;
+        color: $black;
+    }
+}

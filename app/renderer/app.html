@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Electron Web Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./styles/app.css">
+</head>
+
+<body>
+    <header>
+        <app-nav></app-nav>
+    </header>
+    <main>
+        <content-router>
+            <content-route view="home"></content-route>
+            <content-route view="shop"></content-route>
+            <content-route view="contact"></content-route>
+            <content-route view="about"></content-route>
+        </content-router>
+    </main>
+    <footer>
+        <app-footer>
+            <span>My Example Electron App</span>
+            <span>Powered by native Web Components</span>
+            <span>Copyright &#169; 2018</span>
+        </app-footer>
+    </footer>
+    <script>
+        require("./web-components");
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+// =============================================================================
+// Contains styling that is common to all web-components.
+// =============================================================================
+
+:host {
+    display: block; // by default, custom elements are display: inline
+    contain: content; // CSS containment
+}

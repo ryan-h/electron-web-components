@@ -1,0 +1,114 @@
+{
+	"defaultSeverity": "warning",
+	"rules": {
+		"align": [
+			true,
+			"statements"
+		],
+		"class-name": true,
+		"member-access": [
+			"check-accessor"
+		],
+		"comment-format": [
+			true,
+			"check-space"
+		],
+		"interface-name": [
+			true,
+			"always-prefix"
+		],
+		"indent": [
+			true,
+			"spaces"
+		],
+		"curly": true,
+		"forin": true,
+		"no-arg": true,
+		"no-conditional-assignment": true,
+		"no-debugger": true,
+		"adjacent-overload-signatures": true,
+		"no-construct": true,
+		"no-duplicate-variable": true,
+        "no-use-before-declare": true,
+		"use-isnan": true,
+		"no-eval": true,
+		"no-internal-module": true,
+		"no-trailing-whitespace": [
+			true, 
+			"ignore-comments"
+		],
+		"no-var-keyword": true,
+		"no-angle-bracket-type-assertion": true,
+		"no-consecutive-blank-lines": [
+			true,
+			1
+		],
+		"no-unused-expression": true,
+		"no-parameter-reassignment": true,
+		"one-variable-per-declaration": [
+			true,
+			"ignore-for-loop"
+		],
+		"new-parens": true,
+		"member-ordering": [
+			true,
+			{
+				"order": [
+					"private-instance-field",
+					"private-static-field",
+					"protected-instance-field",
+					"protected-static-field",
+					"public-instance-field",
+					"public-static-field",
+					"constructor",
+					"public-instance-method",
+					"public-static-method",
+					"protected-instance-method",
+					"protected-static-method",
+					"private-instance-method",
+					"private-static-method"
+				]
+			}
+		],
+		"one-line": [
+			true,
+			"check-open-brace",
+			"check-whitespace"
+		],
+		"quotemark": [
+			true,
+			"double"
+		],
+		"semicolon": [
+			true,
+			"always"
+		],
+		"triple-equals": [
+			true,
+			"allow-null-check"
+		],
+		"typedef-whitespace": [
+			true,
+			{
+				"call-signature": "nospace",
+				"index-signature": "nospace",
+				"parameter": "nospace",
+				"property-declaration": "nospace",
+				"variable-declaration": "nospace"
+			}
+		],
+		"variable-name": [
+			true,
+			"ban-keywords"
+		],
+		"whitespace": [
+			true,
+			"check-branch",
+			"check-decl",
+			"check-operator",
+			"check-separator",
+			"check-type"
+		],
+		"eofline": true
+	}
+}

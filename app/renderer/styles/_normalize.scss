@@ -1,0 +1,365 @@
+// =============================================================================
+// Normalize the chrome browser defaults in order to render elements more consistently.
+// =============================================================================
+
+$normalizedFontFamily: $baseFontFamily !default;
+$background: $white !default;
+$color: $black !default;
+
+// =============================================================================
+// HTML5 display definitions
+// =============================================================================
+
+// Corrects block display not defined in IE6/7/8/9 & FF3
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+    display: block;
+}
+
+// Corrects inline-block display not defined in IE6/7/8/9 & FF3
+
+audio,
+canvas,
+video {
+    display: inline-block;
+}
+
+// 1. Prevents modern browsers from displaying 'audio' without controls
+// 2. Remove excess height in iOS5 devices
+
+audio {
+    &:not([controls]) {
+        display: none; // 1
+        height: 0; // 2
+    }
+}
+
+//
+// Address `[hidden]` styling not present in IE 8/9.
+// Hide the `template` element in IE, Safari, and Firefox < 22.
+//
+
+[hidden],
+template {
+    display: none;
+}
+
+// =============================================================================
+// Base
+// =============================================================================
+
+// 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+//    http://clagnut.com/blog/348/#c790
+// 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+//    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+
+html {
+    background: $background;
+    color: $color;
+    -webkit-text-size-adjust: 100%; // 2
+}
+
+// Addresses font-family inconsistency between 'textarea' and other form elements.
+
+html,
+button,
+input,
+select,
+textarea {
+    font-family: $normalizedFontFamily;
+}
+
+// Addresses margins handled incorrectly in IE6/7
+
+body {
+    margin: 0;
+}
+
+// =============================================================================
+// Links
+// =============================================================================
+
+// 1. Remove the gray background color from active links in IE 10.
+// 2. Addresses outline displayed oddly in Chrome
+// 3. Improves readability when focused and also mouse hovered in all browsers
+//    people.opera.com/patrickl/experiments/keyboard/test
+// 4. Disable default dragging
+// 5. Allow dragging external links
+
+a {
+    // 1
+    background: transparent;
+
+    // 2
+    &:focus {
+        outline: thin dotted;
+    }
+
+    // 3
+    &:hover,
+    &:active {
+        outline: 0;
+    }
+
+    // 4
+    &:not([draggable=true]) { // sass-lint:disable-line attribute-quotes
+        -webkit-user-drag: none;
+        user-drag: none;
+    }
+
+    // 5
+    &[href^="http://"],
+    &[href^="https://"],
+    &[href^="ftp://"] {
+        -webkit-user-drag: auto;
+        user-drag: auto;
+    }
+}
+
+// =============================================================================
+// Typography
+// =============================================================================
+
+// Addresses styling not present in IE 8/9, S5, Chrome
+
+abbr {
+    &[title] {
+        border-bottom: .1rem dotted;
+    }
+}
+
+// Addresses style set to 'bolder' in FF3+, S4/5, Chrome
+
+b,
+strong {
+    font-weight: bold;
+}
+
+// Addresses styling not present in S5, Chrome
+
+dfn {
+    font-style: italic;
+}
+
+// Addresses styling not present in IE6/7/8/9
+
+mark {
+    background: #ff0; // sass-lint:disable-line no-color-literals
+    color: #000; // sass-lint:disable-line no-color-literals
+}
+
+// Corrects font family set oddly in IE6, S4/5, Chrome
+// en.wikipedia.org/wiki/User:Davidgothberg/Test59
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+
+// Improves readability of pre-formatted text in all browsers
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap; // sass-lint:disable-line no-duplicate-properties
+    word-wrap: break-word;
+}
+
+// Set consistent quote types.
+// Addresses quote property not supported in S4
+q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+
+    &::before,
+    &::after {
+        content: "";
+        content: none; // sass-lint:disable-line no-duplicate-properties
+    }
+}
+
+// Address inconsistent and variable font size in all browsers.
+
+small {
+    font-size: 80%;
+}
+
+// Prevents sub and sup affecting line-height in all browsers
+// gist.github.com/413930
+
+sub,
+sup {
+    position: relative;
+    vertical-align: baseline;
+    line-height: 0;
+    font-size: 75%;
+}
+
+sup {
+    top: -.5em;
+}
+
+sub {
+    bottom: -.25em;
+}
+
+// =============================================================================
+// Lists
+// =============================================================================
+
+
+// =============================================================================
+// Embedded content
+// =============================================================================
+
+// 1. Removes border when inside 'a' element
+// 2. Disable default dragging
+
+img {
+    // 1
+    border: 0;
+
+    // 2
+    &:not([draggable=true]) { // sass-lint:disable-line attribute-quotes
+        -webkit-user-drag: none;
+        user-drag: none;
+    }
+}
+
+// Corrects overflow displayed oddly in IE9
+
+svg {
+    &:not(:root) {
+        overflow: hidden;
+    }
+}
+
+// =============================================================================
+// Figures
+// =============================================================================
+
+// Addresses margin not present in IE6/7/8/9, S5, O11
+
+figure {
+    margin: 0;
+}
+
+// =============================================================================
+// Forms
+// =============================================================================
+
+// Define consistent border, margin, and padding
+
+fieldset {
+    margin: 0 .2rem;
+    border: .1rem solid #c0c0c0; // sass-lint:disable-line no-color-literals
+    padding: .35em .625em .75em;
+}
+
+// 1. Corrects color not being inherited in IE6/7/8/9
+// 2. Remove padding so people aren't caught out if they zero out fieldsets.
+// 3. Corrects text not wrapping in FF3
+
+legend {
+    border: 0; // 1
+    padding: 0; // 2
+    white-space: normal; // 3
+}
+
+// 1. Correct font family not being inherited in all browsers.
+// 2. Corrects font size not being inherited in all browsers
+// 3. Addresses margins set differently in IE6/7, FF3+, S5, Chrome
+// 4. Improves appearance and consistency in all browsers
+
+button,
+input,
+select,
+textarea {
+    margin: 0; // 3
+    vertical-align: baseline; // 4
+    font-family: inherit; // 1
+    font-size: 100%; // 2
+}
+
+// Addresses FF3/4 setting line-height on 'input' using !important in the UA stylesheet
+
+button,
+input {
+    line-height: normal;
+
+    // Re-set default cursor for disabled elements
+    &[disabled] {
+        cursor: default;
+    }
+}
+
+// Address inconsistent `text-transform` inheritance for `button` and `select`.
+// All other form control elements do not inherit `text-transform` values.
+// Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+// Correct `select` style inheritance in Firefox 4+ and Opera.
+
+button,
+select {
+    text-transform: none;
+}
+
+// 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+//    and `video` controls
+// 2. Corrects inability to style clickable 'input' types in iOS
+// 3. Improves usability and consistency of cursor style between image-type
+//    'input' and others
+
+button,
+html input[type="button"], // sass-lint:disable-line force-attribute-nesting, force-element-nesting, no-qualifying-elements
+input[type="reset"], // sass-lint:disable-line force-attribute-nesting, force-element-nesting, no-qualifying-elements
+input[type="submit"] { // sass-lint:disable-line force-attribute-nesting, force-element-nesting, no-qualifying-elements
+    -webkit-appearance: button; // 2
+    cursor: pointer; // 3
+}
+
+// 1. Removes default vertical scrollbar in IE6/7/8/9
+// 2. Improves readability and alignment in all browsers
+
+textarea {
+    overflow: auto; // 1
+    vertical-align: top; // 2
+}
+
+// =============================================================================
+// Tables
+// =============================================================================
+
+// Remove most spacing between table cells
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input {
+    // 1. Addresses appearance set to searchfield in S5, Chrome
+    // 2. Addresses box-sizing set to border-box in S5, Chrome (include -moz to future-proof)
+    &[type="search"] {
+        -webkit-appearance: textfield; // 1
+        -webkit-box-sizing: content-box; // 2
+        box-sizing: content-box;
+
+        // Remove inner padding and search cancel button in Safari 5 and Chrome
+        // on OS X.
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+    }
+}
