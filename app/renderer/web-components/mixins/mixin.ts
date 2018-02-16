@@ -1,4 +1,4 @@
-import { cached } from "./mixin-decorators";
+import { core, cached, hasInstance } from "./mixin-decorators";
 
 /**
  * The constructor type for mixins.
@@ -14,5 +14,5 @@ export type MixinConstructor<T extends HTMLElement> = new (...args: any[]) => T;
  * @returns 
  */
 export function mixin<T>(mixin: T) {
-    return cached(mixin);
+    return hasInstance(cached(core(mixin)));
 }

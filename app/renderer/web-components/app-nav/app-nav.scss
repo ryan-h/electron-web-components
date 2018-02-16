@@ -2,7 +2,7 @@
 
 ul {
     margin: 0;
-    border: 1px $navigationBackgroundColor solid;
+    border: .1rem $navigationBackgroundColor solid;
     background-color: $navigationBackgroundColor;
     padding: 0;
     overflow: hidden;
@@ -10,7 +10,7 @@ ul {
 
     li {
         float: left;
-        border-right: 1px solid $navigationItemBorderColor;
+        border-right: .1rem solid $navigationItemBorderColor;
 
         &:last-child {
             float: right;
