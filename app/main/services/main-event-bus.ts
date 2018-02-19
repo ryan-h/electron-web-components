@@ -25,7 +25,7 @@ export const MainEventBus: IMainEventBus = {
             // Removing all listeners from ipcMain will make Electron internals stop working,
             // just remove the events that match one of the enum members
             for (const eventName of ipcMain.eventNames()) {
-                if (typeof eventName === "string" && eventName !== undefined) {
+                if (typeof eventName === "string" && typeof MainEvents[eventName] !== "undefined") {
                     ipcMain.removeAllListeners(eventName);
                 }
             }

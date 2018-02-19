@@ -22,7 +22,12 @@ export const RendererEventBus: IRendererEventBus = {
         if (event) {
             ipcRenderer.removeAllListeners(event);
         } else {
-            ipcRenderer.removeAllListeners();
+            // Just remove the events that match one of the enum members
+            for (const eventName of ipcRenderer.eventNames()) {
+                if (typeof eventName === "string" && typeof RendererEvents[eventName] !== "undefined") {
+                    ipcRenderer.removeAllListeners(eventName);
+                }
+            }
         }
         return RendererEventBus;
     },

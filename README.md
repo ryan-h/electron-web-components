@@ -44,9 +44,12 @@ Per the definition of a mixin, each web component can derive from one or multipl
 
 These functions make the mixin more powerful while at the same time being abstracted from the mixin itself. They allow for decorating the mixin with enhanced functionality that can be applied to all web components using a mixin.
 
-There are many possibilities here that need to be explored. And using this setup, decorators can be added by the author without needing to make changes to the web components (or even the mixins).
+Essentially there are two main ways of decorating a mixin:
 
-The decorator functions can be built to either wrap the mixin and provide another layer of functionality, or simply patch the mixin by updating the mixin object.
+* *Wrap* the mixin and provide another layer of functionality to its application
+* *Patch* the mixin to simply update the mixin object
+
+There are many possibilities here that could be explored. Fortunately this architecture allows for decorators to be added without needing to make changes to the web components (or even the mixins).
 
 ### Web Components
 

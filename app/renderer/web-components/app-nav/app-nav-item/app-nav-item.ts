@@ -10,7 +10,7 @@ export class AppNavItem extends AttributeMarshaling(Shadow(HTMLElement)) {
      * @type {(string | null)}
      * @memberof AppNavItem
      */
-    private _routeView: string | null;
+    private _routeView: string | null = null;
 
     /**
      * Specifies the style sheet files.
