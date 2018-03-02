@@ -2,7 +2,7 @@ import { mixin, MixinConstructor } from "./mixin";
 import { getFileUrl, convertHtmlFileToNode } from "../../helpers/utilities";
 import * as path from "path";
 
-const GLOBAL_STYLES_PATH = path.join(__dirname, "..", "..", "styles");
+const appStylesPath = path.join(__dirname, "..", "..", "styles");
 
 /**
  * Shadow will attach the shadow dom to the web component and provide functionality for global styles,
@@ -29,7 +29,7 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
      * @protected
      */
     protected get globalStyleSheetPath() {
-        return `${GLOBAL_STYLES_PATH}\\global.css`;
+        return `${appStylesPath}\\global.css`;
     }
 
     /**

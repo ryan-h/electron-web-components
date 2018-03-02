@@ -1,7 +1,7 @@
 import * as path from "path";
 import { convertHtmlFileToNode } from "../../../helpers/utilities";
 
-const VIEW_PATH = path.join(__dirname, "..", "..", "..", "views");
+const appViewsPath = path.join(__dirname, "..", "..", "..", "views");
 
 export class ContentRoute extends HTMLElement {
     /**
@@ -41,7 +41,7 @@ export class ContentRoute extends HTMLElement {
     constructor() {
         super();
 
-        const routePath = `${path.join(VIEW_PATH, this.view)}.html`;
+        const routePath = `${path.join(appViewsPath, this.view)}.html`;
 
         const template = document.createElement("template");
         template.content.appendChild(convertHtmlFileToNode(routePath));

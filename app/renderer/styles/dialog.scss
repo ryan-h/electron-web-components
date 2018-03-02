@@ -1,0 +1,94 @@
+//=============================================================================
+// Contains the common styling used for all Dialogs. 
+// These styles will be injected into the shadow dom of each web component that
+// extends the Dialog mixin.
+//=============================================================================
+
+@import "variables";
+
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    border: 0;
+    border-radius: .5rem;
+    box-shadow: 0 .3rem .6rem 0 rgba($black, .13);
+    background: $white;
+    cursor: default;
+    padding: 1.5rem;
+    min-width: $dialogMinWidth;
+    max-width: $dialogMaxWidth;
+    text-align: left;
+    object-fit: contain;
+
+    &::backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($black, .4);
+    }
+
+    section {
+        &.title {
+            height: 2.2rem;
+            text-align: left;
+            line-height: 2.2rem;
+            font-size: 1.8rem;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+        }
+
+        &.content {
+            text-align: left;
+            color: $steelGrey;
+            font-size: 1.5rem;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+        }
+
+        &.actions {
+            display: flex;
+            flex-flow: row nowrap;
+            align-content: center;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+
+            & button {
+                outline: none;
+                border: 0;
+                border-radius: .3rem;
+                box-shadow: 0 .1rem 0 0 $dialogBtnShadow;
+                background-color: $dialogBtnColor;
+                cursor: pointer;
+                min-width: 10.0rem;
+                height: 2.6rem;
+                text-align: center;
+                text-transform: uppercase;
+                line-height: 2.6rem;
+                color: $slateGrey;
+                font-size: 1.2rem;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                object-fit: contain;
+
+                & + button {
+                    margin-left: .5rem;
+                }
+
+                &[disabled] {
+                    background-color: $dialogDisabledBtnColor;
+                    cursor: default;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

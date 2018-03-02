@@ -1,7 +1,8 @@
 import { RendererEventBus, RendererEvents } from "../../services";
-import { Shadow } from "../mixins";
+import { Shadow, ChildrenUpgraded } from "../mixins";
+import { AboutDialog } from "./about-dialog";
 
-export class AppNav extends Shadow(HTMLElement) {
+export class AppNav extends ChildrenUpgraded(Shadow(HTMLElement)) {
     /**
      * Specifies the style sheet files.
      * 
@@ -58,6 +59,20 @@ export class AppNav extends Shadow(HTMLElement) {
     }
 
     /**
+     * Configure the nav item components after they are upgraded.
+     * 
+     * @protected
+     * @memberof AppNav
+     */
+    protected childrenUpgradedCallback() {
+        const aboutNavItem = this.shadowRoot.querySelector("#aboutNavItem");
+
+        if (aboutNavItem) {
+            aboutNavItem.addEventListener("click", () => this._showAboutDialog());
+        }
+    }
+
+    /**
      * Handles when a route has changed by activating the related item.
      * 
      * @private
@@ -65,7 +80,7 @@ export class AppNav extends Shadow(HTMLElement) {
      * @param {(string | undefined)} view 
      * @memberof AppNav
      */
-    private _onRouteChanged(event: Electron.IpcRendererEvent | null, view: string | undefined) {
+    private _onRouteChanged(event: Electron.IpcRendererEvent | null, view: string | undefined): void {
         if (view) {
             this._activateItem(view);
         }
@@ -86,6 +101,20 @@ export class AppNav extends Shadow(HTMLElement) {
                 ? item.setAttribute("activated", "")
                 : item.removeAttribute("activated");
         });
+    }
+
+    /**
+     * Shows the about dialog.
+     * 
+     * @private
+     * @memberof AppNav
+     */
+    private _showAboutDialog(): void {
+        const dialog: AboutDialog | null = this.shadowRoot.querySelector("about-dialog");
+
+        if (dialog) {
+            dialog.show();
+        }
     }
 }
 

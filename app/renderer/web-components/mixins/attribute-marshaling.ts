@@ -152,8 +152,7 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
         // get the property on the web component, excluding the base prototype
         const property = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), propertyName);
 
-        // ensure that the property exists and that it actually has a setter, currently only a 
-        // setter property is supported, this will need to be updated if we want to support "fields"
+        // ensure that the property exists and that it actually has a setter
         if (property && property.set) {
             property.set.call(this, attributeValue);
         }
