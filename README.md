@@ -1,10 +1,6 @@
 # electron-web-components
 
-This project is a proof-of-concept to demonstrate how native web components can be used in an Electron application built with TypeScript. Allowing an app to be free of any bloated framework while taking advantage of modern web technologies. Built for Electron by utilizing the web component specifications adopted by Chromium. 
-
-## Overview
-
-This repository is meant to be used as an example project that can serve as a starting point for using web components in your Electron app. This is not a framework (no framework is the point) or a complete solution, but a concept that can help foster ideas and be expanded upon to prove out further enhancements and functionality.
+This repository is a proof-of-concept to demonstrate the use of native web components in an Electron application built with TypeScript. Allowing an app to be free of any bloated framework, while taking advantage of modern web technologies by utilizing the web component specifications adopted by Chromium.
 
 ## Setup
 
