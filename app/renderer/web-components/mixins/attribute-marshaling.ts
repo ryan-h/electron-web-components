@@ -6,54 +6,54 @@ const attributePropertyNames = new Map<string, string>();
 
 /**
  * AttributeMarshaling adds functionality to have the value of a changed attribute marshaled to a property on the web component.
- * 
+ *
  * The connectedCallback and disconnectedCallback methods in the web component will need to be used to control this functionality. For Example:
- * 
+ *
  * protected connectedCallback() {
  *     super.connectAttributeMarshaling();
  * }
- * 
+ *
  * protected disconnectedCallback() {
  *     super.disconnectAttributeMarshaling();
  * }
- * 
+ *
  * Once this is connected, any camel-case property on the component matching the attribute name will have it's value set when changed.
  * An example usage could be to have a getter and setter with a backing field:
- * 
+ *
  * <my-component my-attribute="test"></my-component>
- * 
+ *
  * private _myAttribute: string | null;
- * 
+ *
  * protected get myAttribute() {
  *    return this._myAttribute;
  * }
- * 
+ *
  * protected set myAttribute(value: string | null) {
  *    this._myAttribute = value;
  * }
- * 
+ *
  * Another example could be just using the set method to perform additional functionality when the attribute is changed:
- * 
+ *
  * protected set myAttribute(value: string | null) {
  *     if (value === "change") {
  *         this.childElement.change();
  *     }
  * }
- * 
+ *
  * By default any attribute matching a property will have the changed value marshaled. To instead define a specific list of attributes to
  * observe, override the marshaledAttributes getter and define the attribute names:
- * 
+ *
  * protected get marshaledAttributes() {
  *     return ["my-attribute"];
  * }
- * 
+ *
  * Note: This only supports string values, if any type conversion is required just use the attributeChangedCallback for that attribute.
  * Also, the attributeChangedCallback will occur prior to the attribute marshaling, so a marshaled property will not be updated yet at that time.
  */
 export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) => class extends base {
     /**
      * The instance of the mutation observer.
-     * 
+     *
      * @private
      * @type {MutationObserver}
      */
@@ -62,7 +62,7 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
     /**
      * Override to define the specific attribute names to marshal to properties.
      * By default, any attribute that maps to an existing property will be marshaled.
-     * 
+     *
      * @readonly
      * @protected
      * @type {(Array<string> | null)}
@@ -73,8 +73,8 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
 
     /**
      * Creates an instance of the AttributeMarshaling mixin.
-     * 
-     * @param args 
+     *
+     * @param args
      */
     constructor(...args) {
         super(...args);
@@ -84,7 +84,7 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
 
     /**
      * Start attribute marshaling and the observation of attribute mutations.
-     * 
+     *
      * @protected
      */
     protected connectAttributeMarshaling(): void {
@@ -98,6 +98,10 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
         for (let i = 0, length = this.attributes.length; i < length; i++) {
             const attribute = this.attributes.item(i);
 
+            if (!attribute) {
+                continue;
+            }
+
             // if specific attributes where supplied, ensure that the changed attribute is in that list
             if (this.marshaledAttributes && this.marshaledAttributes.indexOf(attribute.name) < 0) {
                 continue;
@@ -109,7 +113,7 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
 
     /**
      * Stop attribute marshaling and the observation of attribute mutations.
-     * 
+     *
      * @protected
      */
     protected disconnectAttributeMarshaling(): void {
@@ -117,11 +121,11 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
     }
 
     /**
-     * Handles the mutation callback in order to set the related property based 
+     * Handles the mutation callback in order to set the related property based
      * on the new attribute value.
-     * 
+     *
      * @private
-     * @param {MutationRecord[]} mutations 
+     * @param {MutationRecord[]} mutations
      */
     private _handleMutations(mutations: MutationRecord[]): void {
         mutations.forEach(mutation => {
@@ -135,10 +139,10 @@ export const AttributeMarshaling = mixin(<T extends MixinConstructor<HTMLElement
 
     /**
      * Sets a single attribute value to a related property.
-     * 
+     *
      * @private
-     * @param {string} attributeName 
-     * @param {(string | null)} attributeValue 
+     * @param {string} attributeName
+     * @param {(string | null)} attributeValue
      */
     private _setAttributeProperty(attributeName: string, attributeValue: string | null): void {
         let propertyName = attributePropertyNames.get(attributeName);

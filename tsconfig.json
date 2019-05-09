@@ -1,25 +1,18 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
+		"forceConsistentCasingInFileNames": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"removeComments": false,
-		"preserveConstEnums": true,
-		"target": "es2015",
-		"sourceMap": true,
-		"experimentalDecorators": false,
-		"forceConsistentCasingInFileNames": true, 
-		"strict": true,
-		"noUnusedLocals": true,
+		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": false,
 		"noImplicitReturns": true,
-		"noUnusedParameters": false,
-		"noFallthroughCasesInSwitch": true,
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"pretty": true
+		"noUnusedLocals": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "es2016",
 	},
 	"exclude": [
-		"node_modules"
-    ]
+	  "node_modules"
+  ]
 }

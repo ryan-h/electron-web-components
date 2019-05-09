@@ -5,16 +5,16 @@ const cachedApplicationsSymbol = Symbol("_cachedApplications");
 const cachedMixinRefSymbol = Symbol("_cachedMixinRef");
 
 /**
- * Wraps the mixin with another function, 
+ * Wraps the mixin with another function,
  * allowing the mixin to be decorated with additional functionality.
- * 
- * @template T 
- * @param {T} mixin 
- * @param {*} wrapper 
- * @returns {T} 
+ *
+ * @template T
+ * @param {T} mixin
+ * @param {*} wrapper
+ * @returns {T}
  */
 function wrap<T>(mixin: T, wrapper: any): T {
-    Object.setPrototypeOf(wrapper, mixin);
+    Object.setPrototypeOf(wrapper, mixin as Object);
 
     // store the original mixin for unwrapping
     if (!mixin[wrappedMixinSymbol]) {
@@ -26,10 +26,10 @@ function wrap<T>(mixin: T, wrapper: any): T {
 
 /**
  * Unwraps the mixin to return the original mixin when wrapped by one or more functions.
- * 
- * @template T 
- * @param {T} wrappedMixin 
- * @returns {T} 
+ *
+ * @template T
+ * @param {T} wrappedMixin
+ * @returns {T}
  */
 function unwrap<T>(wrappedMixin: T): T {
     return wrappedMixin[wrappedMixinSymbol] || wrappedMixin;
@@ -37,11 +37,11 @@ function unwrap<T>(wrappedMixin: T): T {
 
 /**
  * Determines if a mixin has been applied to the instance of an object.
- * 
- * @template T 
- * @param {object} instance 
- * @param {T} mixin 
- * @returns {boolean} 
+ *
+ * @template T
+ * @param {object} instance
+ * @param {T} mixin
+ * @returns {boolean}
  */
 function hasMixin<T>(instance: object, mixin: T): boolean {
     let obj = instance;
@@ -62,11 +62,11 @@ function hasMixin<T>(instance: object, mixin: T): boolean {
 
 /**
  * Decorates the mixin with core functionality required by other mixin decorators.
- * 
+ *
  * @export
- * @template T 
- * @param {T} mixin 
- * @returns {T} 
+ * @template T
+ * @param {T} mixin
+ * @returns {T}
  */
 export function core<T>(mixin: T): T {
     return wrap(mixin, base => {
@@ -82,13 +82,13 @@ export function core<T>(mixin: T): T {
 
 /**
  * Decorates the mixin so that the application of the mixin is cached for each base. When the mixin is applied
- * multiple times to the same base class, the mixin will only create one class expression, memoize it, and return it 
+ * multiple times to the same base class, the mixin will only create one class expression, memoize it, and return it
  * for each application.
- * 
+ *
  * @export
- * @template T 
- * @param {T} mixin 
- * @returns 
+ * @template T
+ * @param {T} mixin
+ * @returns
  */
 export function cached<T>(mixin: T): T {
     return wrap(mixin, base => {
@@ -116,11 +116,11 @@ export function cached<T>(mixin: T): T {
 /**
  * Decorates the mixin by adding a Symbol.hasInstance implementation
  * in order to support instanceof checks for a particular mixin.
- * 
+ *
  * @export
- * @template T 
- * @param {T} mixin 
- * @returns {T} 
+ * @template T
+ * @param {T} mixin
+ * @returns {T}
  */
 export function hasInstance<T>(mixin: T): T {
     Object.defineProperty(mixin, Symbol.hasInstance, {

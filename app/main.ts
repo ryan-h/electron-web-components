@@ -16,7 +16,7 @@ MainEventBus.on(MainEvents.RendererEventSend, onRendererEventSend);
 // *** Functions ***
 
 /**
- * Event handler for when the application is ready. 
+ * Event handler for when the application is ready.
  */
 function onAppReady(): void {
     mainWindow = new BrowserWindow({
@@ -25,7 +25,10 @@ function onAppReady(): void {
         minWidth: 1024,
         minHeight: 768,
         frame: true,
-        show: false
+        show: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     mainWindow.once("ready-to-show", mainWindow.show);
@@ -41,8 +44,8 @@ function onAppReady(): void {
 
 /**
  * Event handler for when the DOM is loaded for the web contents of this window.
- * 
- * @param {Electron.Event} event 
+ *
+ * @param {Electron.Event} event
  */
 function onDomReady(event: Electron.Event): void {
     MainEventBus.emit(MainEvents.Route, "home");
@@ -50,10 +53,10 @@ function onDomReady(event: Electron.Event): void {
 
 /**
  * Handles sending an event and args to the renderer process of the main window.
- * 
- * @param {(Electron.IpcMainEvent | null)} event 
- * @param {string} channel 
- * @param {...any[]} args 
+ *
+ * @param {(Electron.IpcMainEvent | null)} event
+ * @param {string} channel
+ * @param {...any[]} args
  */
 function onRendererEventSend(event: Electron.IpcMainEvent | null, channel: string, ...args: any[]): void {
     if (mainWindow) {
@@ -63,9 +66,9 @@ function onRendererEventSend(event: Electron.IpcMainEvent | null, channel: strin
 
 /**
  * Handles requests for changing the application route.
- * 
- * @param {(Electron.IpcMainEvent | null)} event 
- * @param {(string | undefined)} view 
+ *
+ * @param {(Electron.IpcMainEvent | null)} event
+ * @param {(string | undefined)} view
  */
 function onRoute(event: Electron.IpcMainEvent | null, view: string | undefined): void {
     if (view) {
@@ -74,7 +77,7 @@ function onRoute(event: Electron.IpcMainEvent | null, view: string | undefined):
 }
 
 /**
- * Handles when the main window has been closed (destroyed). 
+ * Handles when the main window has been closed (destroyed).
  * Allows for releasing resources prior to closing.
  */
 function onWindowClosed(): void {
@@ -88,9 +91,9 @@ function onWindowClosed(): void {
 
 /**
  * Event handler for when the window has crashed.
- * 
- * @param {Electron.Event} event 
- * @param {boolean} killed 
+ *
+ * @param {Electron.Event} event
+ * @param {boolean} killed
  */
 function onWindowCrashed(event: Electron.Event, killed: boolean): void {
     app.exit();

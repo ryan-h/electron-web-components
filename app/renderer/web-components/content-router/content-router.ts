@@ -6,7 +6,7 @@ import { removeChildren } from "../../helpers/utilities";
 export class ContentRouter extends Shadow(HTMLElement) {
     /**
      * Stores the view name for the current route.
-     * 
+     *
      * @private
      * @type {(string | undefined)}
      * @memberof ContentRouter
@@ -15,7 +15,7 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Specifies the template file.
-     * 
+     *
      * @readonly
      * @protected
      * @type {string}
@@ -27,10 +27,10 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
     * Gets the app container used for the route's view content.
-    * 
+    *
     * @readonly
     * @protected
-    * 
+    *
     * @memberof ContentRouter
     */
     protected get contentContainer() {
@@ -45,7 +45,7 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Creates an instance of ContentRouter.
-     * 
+     *
      * @memberof ContentRouter
      */
     constructor() {
@@ -57,8 +57,8 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Handles adding the event listener for Route.
-     * 
-     * 
+     *
+     *
      * @memberof ContentRouter
      */
     public connectedCallback() {
@@ -67,8 +67,8 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Handles removing the event listener for Route.
-     * 
-     * 
+     *
+     *
      * @memberof ContentRouter
      */
     public disconnectedCallback() {
@@ -77,15 +77,15 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Handles the route changed event and loads the requested view.
-     * 
+     *
      * @private
-     * @param {(Electron.IpcRendererEvent | null)} event 
-     * @param {(string | undefined)} view 
-     * 
+     * @param {(Electron.IpcRendererEvent | null)} event
+     * @param {(string | undefined)} view
+     *
      * @memberof ContentRouter
      */
     private _onRouteChanged(event: Electron.IpcRendererEvent | null, view: string | undefined) {
-        const routes = this.getElementsByTagName("content-route") as NodeListOf<ContentRoute>;
+        const routes = this.getElementsByTagName("content-route") as HTMLCollectionOf<ContentRoute>;
 
         if (routes.length > 0) {
             const selectedView = (view || "").trim().toLowerCase();
@@ -103,10 +103,10 @@ export class ContentRouter extends Shadow(HTMLElement) {
 
     /**
      * Loads the new route content.
-     * 
+     *
      * @private
-     * @param {ContentRoute} newRoute 
-     * 
+     * @param {ContentRoute} newRoute
+     *
      * @memberof ContentRouter
      */
     private _loadNewRoute(newRoute: ContentRoute): void {
