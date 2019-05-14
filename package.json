@@ -17,23 +17,16 @@
     "watch:sass:main": "node-sass --watch app/renderer/styles -o app/renderer/styles",
     "watch:sass:components": "node-sass --watch app/renderer/web-components -o app/renderer/web-components",
     "lint": "concurrently \"npm run lint:ts\" \"npm run lint:sass\"",
-    "lint:ts": "gulp lint:ts",
-    "lint:sass": "gulp lint:sass"
+    "lint:ts": "tslint --project ./tsconfig.json",
+    "lint:sass": "sass-lint -c sass-lint.yml \"./app/**/*.scss\" -v -q"
   },
   "dependencies": {
     "camelcase": "5.3.1"
   },
   "devDependencies": {
-    "@types/node": "12.0.0",
+    "@types/node": "12.0.1",
     "concurrently": "^4.1.0",
     "electron": "^5.0.1",
-    "gulp": "^4.0.2",
-    "gulp-filter": "^5.1.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sass-lint": "^1.4.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-tslint": "^8.1.4",
-    "gulp-typescript": "^5.0.1",
     "node-sass": "^4.12.0",
     "sass-lint": "^1.13.1",
     "tslint": "^5.16.0",

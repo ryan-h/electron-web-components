@@ -1,11 +1,5 @@
-/**
- * Alias for Event so that it can be used in the Electron typings.
- */
-type NodeEvent = Event;
+// Additional Electron types not provided by the Electron package.
 
-/**
- * Additional Electron types not provided by the Electron package.
- */
 declare namespace Electron {
     type IpcMainEventListener = (event: IpcMainEvent, ...args: any[]) => void;
 
@@ -28,15 +22,5 @@ declare namespace Electron {
 		 * You can call sender.send to reply to the asynchronous message.
 		 */
         sender: IpcRenderer;
-    }
-
-    interface BrowserWindow {
-        /**
-         * Removes the menu bar.
-         * 
-         * @param {null} menu 
-         * @memberof BrowserWindow
-         */
-        setMenu(menu: null): void;
     }
 }
