@@ -24,7 +24,7 @@ export const Dialog = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
     /**
      * Defines if the dialog can be cancelled by pressing escape.
      * Override to disallow canceling the dialog.
-     * 
+     *
      * @readonly
      * @protected
      * @type {boolean}
@@ -88,29 +88,28 @@ export const Dialog = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
     }
 
     /**
-     * Adds the dialog style sheet link element to the shadow dom.
+     * Adds the external dialog style sheet to the shadow dom.
      *
      * @private
-     * @returns {void}
+     * @returns {Promise<void>}
      */
-    private _addDialogStyleSheet(): void {
+    private async _addDialogStyleSheet(): Promise<void> {
         if (this.shadowRoot) {
-            const style = document.createElement("link");
-            style.rel = "stylesheet";
-            style.href = getFileUrl(this.dialogStyleSheetPath);
-            style.setAttribute("async", "");
+            const sheet = new CSSStyleSheet();
 
-            this.shadowRoot.insertBefore(style, this.shadowRoot.firstChild);
+            await sheet.replace(`@import url("${getFileUrl(this.dialogStyleSheetPath)}")`);
+
+            this.shadowRoot.adoptedStyleSheets = [...this.shadowRoot.adoptedStyleSheets, sheet];
         }
     }
 
     /**
-     * Handles the cancel event to explicitly call the close function, 
+     * Handles the cancel event to explicitly call the close function,
      * or if not cancelable, prevent the dialog from closing.
-     * 
+     *
      * @private
-     * @param {Event} event 
-     * @returns {void} 
+     * @param {Event} event
+     * @returns {void}
      */
     private _onCancel(event: Event): void {
         if (!this.isCancelable) {

@@ -24,3 +24,36 @@ declare namespace Electron {
         sender: IpcRenderer;
     }
 }
+
+
+// Additional DOM types not provided by TypeScript.
+
+declare interface ShadowRoot {
+    /**
+     * The defined styles for the DOM element.
+     *
+     * @type {ReadonlyArray<CSSStyleSheet>}
+     * @memberof ShadowRoot
+     */
+    adoptedStyleSheets: ReadonlyArray<CSSStyleSheet>;
+}
+
+declare interface CSSStyleSheet {
+    /**
+     * Update the rules for a stylesheet.
+     *
+     * @param {string} text
+     * @memberof CSSStyleSheet
+     */
+    replaceSync(text: string): void;
+
+    /**
+     * Update the rules for a stylesheet, including imports.
+     * Returns a Promise that resolves once any external references are loaded.
+     *
+     * @param {string} text
+     * @returns {Promise<CSSStyleSheet>}
+     * @memberof CSSStyleSheet
+     */
+    replace(text: string): Promise<CSSStyleSheet>;
+}

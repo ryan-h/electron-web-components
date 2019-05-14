@@ -7,24 +7,24 @@ const appStylesPath = path.join(__dirname, "..", "..", "styles");
 /**
  * Shadow will attach the shadow dom to the web component and provide functionality for global styles,
  * and is also responsible for adding any custom template content or stylesheets to the shadow DOM.
- * 
+ *
  * Add a custom stylesheet:
- * 
+ *
  * protected get styleSheetPaths(): Array<string> {
  *    return [`${__dirname}\\my-component.css`];
  * }
- * 
+ *
  * Add a custom template:
- * 
+ *
  * protected get templatePath(): string {
  *    return `${__dirname}\\my-component.html`;
  * }
  */
 export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) => class extends base {
     /**
-     * Defines the path to the global style sheet. 
+     * Defines the path to the global style sheet.
      * Override to specify a custom path.
-     * 
+     *
      * @readonly
      * @protected
      */
@@ -35,7 +35,7 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
     /**
      * Determines if the global style sheet should be added.
      * Override in order to disable adding the global style sheet.
-     * 
+     *
      * @readonly
      * @protected
      */
@@ -45,7 +45,7 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
 
     /**
      * Override to specify the list of paths for the style sheets.
-     * 
+     *
      * @readonly
      * @protected
      * @type {Array<string>}
@@ -56,7 +56,7 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
 
     /**
      * Override to specify the path to the template file.
-     * 
+     *
      * @readonly
      * @protected
      * @type {string}
@@ -67,7 +67,7 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
 
     /**
      * Gets the shadow root for the web component.
-     * 
+     *
      * @readonly
      * @type {ShadowRoot}
      * @throws Error - if shadow root does not exist
@@ -84,8 +84,8 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
 
     /**
      * Creates an instance of the Shadow mixin.
-     * 
-     * @param args 
+     *
+     * @param args
      */
     constructor(...args) {
         super(...args);
@@ -97,13 +97,13 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
             if (this.shouldAddGlobalStyleSheet || this.styleSheetPaths.length > 0) {
                 const contentOverlay = this._createContentOverlay();
 
-                // an overlay is currently the best way to temporarily hide content while loading linked stylesheets:
+                // an overlay is currently the best way to temporarily hide content while loading external stylesheets:
                 // - an attribute cannot exist on the web-component when constructed programmatically (customElements.get())
                 // - The content must be visible to apply some DOM manipulations (ie, focus, etc)
                 this.shadowRoot.appendChild(contentOverlay);
 
                 // wait for all the stylesheets to load before showing content (prevents FOUC)
-                Promise.all(this.addStyleSheets()).then(() => contentOverlay.remove());
+                this.addStyleSheets().then(() => contentOverlay.remove());
             }
 
             this.shadowRoot.appendChild(convertHtmlFileToNode(this.templatePath));
@@ -113,42 +113,32 @@ export const Shadow = mixin(<T extends MixinConstructor<HTMLElement>>(base: T) =
     }
 
     /**
-     * Adds all the stylesheets to the shadow DOM and
-     * returns a promise for each one which will resolve when loaded.
-     * 
+     * Adds all the external stylesheets to the shadow DOM.
+     *
      * @protected
-     * @returns {Array<Promise<void>>} 
+     * @returns {Promise<void>}
      */
-    protected addStyleSheets(): Array<Promise<void>> {
-        const promises = new Array<Promise<void>>();
-
+    protected async addStyleSheets(): Promise<void> {
         const styleSheetPaths = this.shouldAddGlobalStyleSheet
             ? [...this.styleSheetPaths, this.globalStyleSheetPath]
             : this.styleSheetPaths;
 
         for (const styleSheetPath of styleSheetPaths) {
             if (styleSheetPath) {
-                promises.push(new Promise<void>((resolve, reject) => {
-                    const style = document.createElement("link");
-                    style.rel = "stylesheet";
-                    style.href = getFileUrl(styleSheetPath);
-                    style.setAttribute("async", "");
-                    style.onload = () => resolve();
-                    style.onerror = () => reject();
+                const sheet = new CSSStyleSheet();
 
-                    this.shadowRoot.insertBefore(style, this.shadowRoot.firstChild);
-                }));
+                await sheet.replace(`@import url("${getFileUrl(styleSheetPath)}")`);
+
+                this.shadowRoot.adoptedStyleSheets = [...this.shadowRoot.adoptedStyleSheets, sheet];
             }
         }
-
-        return promises;
     }
 
     /**
      * Creates the HTML element to be used as an overlay to hide the content until all stylesheets are loaded.
-     * 
+     *
      * @private
-     * @returns {HTMLElement} 
+     * @returns {HTMLElement}
      */
     private _createContentOverlay(): HTMLElement {
         const overlay = document.createElement("div");
